@@ -2,3 +2,6 @@
 	path = lib/ofsoftswitch13
 	url = https://github.com/ljerezchaves/ofsoftswitch13.git
 	branch = ns3lib
+[submodule "lib/ofsoftswitch13-dag"]
+	path = lib/ofsoftswitch13-dag
+	url = https://github.com/stavallo/ofsoftswitch13.git
