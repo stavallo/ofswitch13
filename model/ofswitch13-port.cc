@@ -188,6 +188,12 @@ OFSwitch13Port::GetPortNo (void) const
   return m_portNo;
 }
 
+Ptr<NetDevice>
+OFSwitch13Port::GetNetDevice (void) const
+{
+  return m_netDev;
+}
+
 bool
 OFSwitch13Port::PortUpdateState ()
 {
@@ -280,7 +286,8 @@ OFSwitch13Port::Receive (Ptr<NetDevice> device, Ptr<const Packet> packet,
   NS_LOG_FUNCTION (this << packet);
 
   // Check port configuration.
-  if ((m_swPort->conf->config & (OFPPC_NO_RECV | OFPPC_PORT_DOWN)) != 0)
+  if ((m_swPort->conf->config & (OFPPC_NO_RECV | OFPPC_PORT_DOWN)) != 0
+      || (m_swPort->conf->state & OFPPS_LINK_DOWN) != 0)
     {
       NS_LOG_WARN ("This port is down or inoperating. Discarding packet");
       return false;
@@ -313,7 +320,8 @@ OFSwitch13Port::Send (Ptr<const Packet> packet, uint32_t queueNo,
 {
   NS_LOG_FUNCTION (this << packet << queueNo << tunnelId);
 
-  if (m_swPort->conf->config & (OFPPC_PORT_DOWN))
+  if ((m_swPort->conf->config & (OFPPC_PORT_DOWN)) != 0
+      || (m_swPort->conf->state & OFPPS_LINK_DOWN) != 0)
     {
       NS_LOG_WARN ("This port is down. Discarding packet");
       return false;

@@ -61,6 +61,12 @@ public:
   uint32_t GetPortNo (void) const;
 
   /**
+   * Get the net device.
+   * \return The net device.
+   */
+  Ptr<NetDevice> GetNetDevice (void) const;
+
+  /**
    * Complete Constructor. Create and populate a new datapath port, notifying
    * the controller of this new port.
    * \see ofsoftswitch new_port () at udatapath/dp_ports.c

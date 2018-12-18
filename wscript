@@ -62,6 +62,9 @@ def configure(conf):
     # Checking for required libraries
     conf.env.DL = conf.check(mandatory=False, lib='dl', define_name='DL', uselib_store='DL')
     conf.env.NBEE = conf.check(mandatory=False, lib='nbee', define_name='NBEE', uselib_store='NBEE')
+    conf.env.KSP = conf.check(mandatory=True, lib='ksp', define_name='KSP', uselib_store='KSP')
+    conf.env.CLP = conf.check(mandatory=True, lib='Clp', define_name='CLP', uselib_store='CLP')
+    conf.env.COINU = conf.check(mandatory=True, lib='CoinUtils', define_name='COINU', uselib_store='COINU')
     conf.env.OFSWITCH13 = conf.check(mandatory=False, lib='ns3ofswitch13', use='NBEE', libpath=os.path.abspath(os.path.join(conf.env.WITH_OFSWITCH13,'udatapath')))
     libs_found = conf.env.DL and conf.env.NBEE and conf.env.OFSWITCH13
     conf.report_optional_feature("ofswitch13", "NS-3 OpenFlow 1.3 integration", libs_found, "Required libraries not found")
@@ -79,7 +82,7 @@ def configure(conf):
             os.path.abspath(os.path.join(conf.env.WITH_OFSWITCH13,'oflib-exp')),
             os.path.abspath(os.path.join(conf.env.WITH_OFSWITCH13,'secchan')),
             os.path.abspath(os.path.join(conf.env.WITH_OFSWITCH13,'udatapath'))];
-    conf.env.LIB_OFSWITCH13 = ['dl', 'nbee', 'ns3ofswitch13']
+    conf.env.LIB_OFSWITCH13 = ['dl', 'nbee', 'ns3ofswitch13', 'ksp', 'Clp', 'CoinUtils']
     conf.env.LIBPATH_OFSWITCH13 = [os.path.abspath(os.path.join(conf.env.WITH_OFSWITCH13,'udatapath'))]
 
 
@@ -91,6 +94,7 @@ def build(bld):
     module = bld.create_ns3_module('ofswitch13', ['core', 'network', 'internet', 'csma', 'point-to-point', 'virtual-net-device', 'applications'])
     module.source = [
         'model/ofswitch13-controller.cc',
+        'model/ofswitch13-dag-controller.cc',
         'model/ofswitch13-device.cc',
         'model/ofswitch13-interface.cc',
         'model/ofswitch13-learning-controller.cc',
@@ -99,6 +103,8 @@ def build(bld):
         'model/ofswitch13-socket-handler.cc',
         'model/queue-tag.cc',
         'model/tunnel-id-tag.cc',
+        'utils/dag.cc',
+        'utils/subgraph.cc',
         'helper/ofswitch13-device-container.cc',
         'helper/ofswitch13-external-helper.cc',
         'helper/ofswitch13-helper.cc',
@@ -111,6 +117,7 @@ def build(bld):
     headers.module = 'ofswitch13'
     headers.source = [
         'model/ofswitch13-controller.h',
+        'model/ofswitch13-dag-controller.h',
         'model/ofswitch13-device.h',
         'model/ofswitch13-interface.h',
         'model/ofswitch13-learning-controller.h',
@@ -119,6 +126,8 @@ def build(bld):
         'model/ofswitch13-socket-handler.h',
         'model/queue-tag.h',
         'model/tunnel-id-tag.h',
+        'utils/dag.h',
+        'utils/subgraph.h',
         'helper/ofswitch13-device-container.h',
         'helper/ofswitch13-external-helper.h',
         'helper/ofswitch13-helper.h',

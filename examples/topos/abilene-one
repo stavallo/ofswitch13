@@ -1,0 +1,70 @@
+?SNDlib native format; type: network; version: 1.0
+# network abilene
+
+# META SECTION
+#
+# <attribute> <content>
+
+META (
+  granularity  = 6month
+  time  = 2004
+  unit  = MBITPERSEC
+  origin  = Yin Zhang, http://userweb.cs.utexas.edu/~yzhang/research/AbileneTM, scaled directed peak matrix, period:6 month, total demand 3Tbps
+)
+
+# NODE SECTION
+#
+# <node_id> [(<longitude>, <latitude>)]
+
+NODES (
+  ATLAM5 ( -84.3833 33.75 )
+  ATLAng ( -85.50 34.50 )
+  CHINng ( -87.6167 41.8333 )
+  DNVRng ( -105.00 40.75 )
+  HSTNng ( -95.517364 29.770031 )
+  IPLSng ( -86.159535 39.780622 )
+  KSCYng ( -96.596704 38.961694 )
+  LOSAng ( -118.25 34.05 )
+  NYCMng ( -73.9667 40.7833 )
+  SNVAng ( -122.02553 37.38575 )
+  STTLng ( -122.30 47.60 )
+  WASHng ( -77.026842 38.897303 )
+)
+
+# LINK SECTION
+#
+# <link_id> ( <source> <target> ) <pre_installed_capacity> <pre_installed_capacity_cost> <routing_cost> <setup_cost> ( {<module_capacity> <module_cost>}* )
+
+LINKS (
+  ATLAM5_ATLAng ( ATLAng ATLAM5 ) 9920.00 0.00 0.00 0.00 ( 40000.00 133.00 )
+  ATLAng_HSTNng ( HSTNng ATLAng ) 9920.00 0.00 0.00 0.00 ( 40000.00 1081.00 )
+  ATLAng_IPLSng ( IPLSng ATLAng ) 2480.00 0.00 0.00 0.00 ( 40000.00 591.00 )
+  ATLAng_WASHng ( WASHng ATLAng ) 9920.00 0.00 0.00 0.00 ( 40000.00 901.00 )
+  CHINng_IPLSng ( IPLSng CHINng ) 9920.00 0.00 0.00 0.00 ( 40000.00 260.00 )
+  CHINng_NYCMng ( NYCMng CHINng ) 9920.00 0.00 0.00 0.00 ( 40000.00 1147.00 )
+  DNVRng_KSCYng ( KSCYng DNVRng ) 9920.00 0.00 0.00 0.00 ( 40000.00 745.00 )
+  DNVRng_SNVAng ( SNVAng DNVRng ) 9920.00 0.00 0.00 0.00 ( 40000.00 1516.00 )
+  DNVRng_STTLng ( STTLng DNVRng ) 9920.00 0.00 0.00 0.00 ( 40000.00 1573.00 )
+  HSTNng_KSCYng ( KSCYng HSTNng ) 9920.00 0.00 0.00 0.00 ( 40000.00 1028.00 )
+  HSTNng_LOSAng ( LOSAng HSTNng ) 9920.00 0.00 0.00 0.00 ( 40000.00 2196.00 )
+  IPLSng_KSCYng ( KSCYng IPLSng ) 9920.00 0.00 0.00 0.00 ( 40000.00 903.00 )
+  LOSAng_SNVAng ( SNVAng LOSAng ) 9920.00 0.00 0.00 0.00 ( 40000.00 505.00 )
+  NYCMng_WASHng ( WASHng NYCMng ) 9920.00 0.00 0.00 0.00 ( 40000.00 336.00 )
+  SNVAng_STTLng ( STTLng SNVAng ) 9920.00 0.00 0.00 0.00 ( 40000.00 1138.00 )
+)
+
+# DEMAND SECTION
+#
+# <demand_id> ( <source> <target> ) <routing_unit> <demand_value> <max_path_length>
+
+DEMANDS (
+  CHINng_ATLAM5 ( CHINng ATLAM5 ) 1 2770.00 UNLIMITED
+  ATLAM5_CHINng ( ATLAM5 CHINng ) 1 2770.00 UNLIMITED
+)
+
+# ADMISSIBLE PATHS SECTION
+#
+# <demand_id> ( {<path_id> ( <link_id>+ )}+ )
+
+ADMISSIBLE_PATHS ( 
+)

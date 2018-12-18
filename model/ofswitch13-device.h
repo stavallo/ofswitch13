@@ -178,6 +178,12 @@ public:
   //\}
 
   /**
+   * Return the datapath
+   * \return The datapath
+   */
+  struct datapath* GetDatapath (void);
+
+  /**
    * Add a 'port' to the switch device. This method adds a new switch port to a
    * OFSwitch13Device, so that the new switch port NetDevice becomes part of
    * the switch and L2 frames start being forwarded to/from this OpenFlow
@@ -355,6 +361,7 @@ private:
    */
   void DatapathTimeout (struct datapath *dp);
 
+public:
   /**
    * Get the OFSwitch13Port pointer from its number.
    * \param no The port number (starting at 1).
@@ -362,6 +369,7 @@ private:
    */
   Ptr<OFSwitch13Port> GetOFSwitch13Port (uint32_t no);
 
+private:
   /**
    * Create an OpenFlow packet in message and send the packet to all
    * controllers with open connections.
